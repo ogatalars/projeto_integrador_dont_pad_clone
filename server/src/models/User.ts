@@ -1,19 +1,22 @@
+// src/models/User.ts
 import { DataTypes, Model, Optional } from 'sequelize';
-import sequelize from '../config/db';
+import sequelizeInstance from '../config/db'; // Renomeei para sequelizeInstance para clareza
 import bcrypt from 'bcrypt';
 
-
 interface UserAttributes {
-  id?: number; 
+  id: number;
   email: string;
-  password?: string; 
+  password?: string; // Opcional porque não queremos sempre incluí-lo
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export interface UserInstance extends Model<UserAttributes, Optional<UserAttributes, 'id'>>, UserAttributes {}
+// Para criação, id pode ser omitido
+interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'createdAt' | 'updatedAt'> {}
 
-const User = sequelize.define<UserInstance>(
+export interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes {}
+
+const User = sequelizeInstance.define<UserInstance>(
   'User',
   {
     id: {
@@ -22,7 +25,7 @@ const User = sequelize.define<UserInstance>(
       primaryKey: true,
     },
     email: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(191), // Boa prática definir tamanho e usar utf8mb4 no MySQL para emails
       allowNull: false,
       unique: true,
       validate: {
@@ -43,9 +46,8 @@ const User = sequelize.define<UserInstance>(
     },
   },
   {
-   
-    tableName: 'users', 
-    timestamps: true, 
+    tableName: 'users',
+    timestamps: true,
     hooks: {
       beforeCreate: async (user: UserInstance) => {
         if (user.password) {
@@ -54,14 +56,13 @@ const User = sequelize.define<UserInstance>(
         }
       },
       beforeUpdate: async (user: UserInstance) => {
-       
         if (user.changed('password') && user.password) {
-          if (!user.password.startsWith('$2') || user.password.length !== 60) {
+          if (!user.password.startsWith('$2') || user.password.length !== 60) { // Evita re-hash de um hash
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(user.password, salt);
           }
         }
-      }
+      },
     },
     defaultScope: {
       attributes: { exclude: ['password'] },
@@ -69,16 +70,9 @@ const User = sequelize.define<UserInstance>(
     scopes: {
       withPassword: {
         attributes: { include: ['password'] },
-      }
-    }
+      },
+    },
   }
 );
-
-// Método de instância para verificar a senha (opcional, pode ser feito no controller)
-// Se você preferir fazer no controller, pode remover este método.
- (User.prototype as any).validPassword = async function (password: string): Promise<boolean> {
-  return bcrypt.compare(password, this.password);
- };
-
 
 export default User;

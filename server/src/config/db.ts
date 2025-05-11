@@ -1,3 +1,4 @@
+// src/config/db.ts
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
 
@@ -8,30 +9,26 @@ if (!process.env.DB_DIALECT) {
   process.exit(1);
 }
 
-
 const sequelize = new Sequelize({
-  dialect: process.env.DB_DIALECT as 'sqlite', // 'mysql' | 'postgres' | 'sqlite' | 'mariadb' | 'mssql'
-  storage: process.env.DB_STORAGE || './database.sqlite', // Necessário para SQLite
-  logging: process.env.NODE_ENV === 'development' ? console.log : false, // Log SQL queries em dev
-  // host: process.env.DB_HOST,
-  // port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : undefined,
-  // username: process.env.DB_USER,
-  // password: process.env.DB_PASSWORD,
-  // database: process.env.DB_NAME,
+  dialect: process.env.DB_DIALECT as 'sqlite',
+  storage: process.env.DB_STORAGE || './database.sqlite',
+  logging: process.env.NODE_ENV === 'development' ? console.log : false,
 });
 
 export const initDB = async () => {
   try {
-    await sequelize.authenticate();
-    console.log('Conexão com o Sequelize estabelecida com sucesso.');
+    await sequelize.authenticate(); // Apenas autentica, não precisa de usuário/senha para SQLite local simples
+    console.log('Conexão com o SQLite estabelecida com sucesso.');
 
-    await sequelize.sync({ alter: process.env.NODE_ENV === 'development' ? true : false });
-    console.log('Todos os modelos foram sincronizados com sucesso.');
+    // { alter: true } pode ser útil em dev para SQLite também.
+    const syncOption = process.env.NODE_ENV === 'development' ? { alter: true } : {};
+    await sequelize.sync(syncOption);
+    console.log('Modelos sincronizados com o banco de dados (SQLite).');
 
   } catch (error) {
-    console.error('Não foi possível conectar ao banco de dados via Sequelize:', error);
-    throw error; 
+    console.error('Não foi possível conectar ou sincronizar com o banco de dados SQLite:', error);
+    throw error;
   }
 };
 
-export default sequelize; 
+export default sequelize;
