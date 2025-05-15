@@ -1,9 +1,9 @@
 // src/middlewares/authMiddleware.ts
-import { Request, Response, NextFunction } from 'express'; // Importar Request explicitamente
+import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload, Secret } from 'jsonwebtoken';
 import User, { UserInstance } from '../models/User';
 
-// 1. Definição da Interface Corrigida
+
 export interface AuthenticatedRequest extends Request { // Estender o Request importado
   user?: UserInstance;
 }

@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import { initDB } from './config/db';
 import authRoutes from './routes/authRoutes';
-import docRoutes from './routes/docRoutes'; // <<< 1. IMPORTE AS ROTAS DE DOCUMENTOS
+import docRoutes from './routes/docRoutes'; 
 
 dotenv.config();
 
@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5001;
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
             ? 'SUA_URL_DO_GITHUB_PAGES_AQUI' 
-            : ['http://localhost:3000', 'http://localhost:5173'], // Permite múltiplas origens para dev
+            : ['http://localhost:3000', 'http://localhost:5173'], 
   credentials: true 
 }));
 app.use(express.json());
@@ -26,9 +26,9 @@ app.get('/api/ping', (req: Request, res: Response) => {
   res.status(200).json({ message: 'Pong! Servidor SQLite está no ar. Data: ' + new Date().toLocaleString() });
 });
 
-// Definir Rotas da API
+//  Rotas da API
 app.use('/api/auth', authRoutes);
-app.use('/api/docs', docRoutes); // <<< 2. ADICIONE AS ROTAS DE DOCUMENTOS AO EXPRESS
+app.use('/api/docs', docRoutes); 
 
 // Inicializar DB e Servidor
 const startServer = async () => {

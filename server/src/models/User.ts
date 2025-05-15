@@ -1,6 +1,6 @@
 // src/models/User.ts
 import { DataTypes, Model, Optional } from 'sequelize';
-import sequelizeInstance from '../config/db'; // Renomeei para sequelizeInstance para clareza
+import sequelizeInstance from '../config/db'; 
 import bcrypt from 'bcrypt';
 
 interface UserAttributes {
@@ -11,7 +11,7 @@ interface UserAttributes {
   updatedAt?: Date;
 }
 
-// Para criação, id pode ser omitido
+
 interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'createdAt' | 'updatedAt'> {}
 
 export interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes {}
@@ -25,7 +25,7 @@ const User = sequelizeInstance.define<UserInstance>(
       primaryKey: true,
     },
     email: {
-      type: DataTypes.STRING(191), // Boa prática definir tamanho e usar utf8mb4 no MySQL para emails
+      type: DataTypes.STRING(191), 
       allowNull: false,
       unique: true,
       validate: {

@@ -20,7 +20,6 @@ const generateToken = (id: number, email: string): string => {
   }
 
   const options: SignOptions = {
-    // Sua modificação com a asserção
     expiresIn: expiresInRaw as jwt.SignOptions["expiresIn"],
   };
 
@@ -73,11 +72,11 @@ export const registerUser = async (req: Request, res: Response): Promise<void> =
     if (error.name === 'SequelizeValidationError') {
       const messages = error.errors.map((e: any) => e.message);
       res.status(400).json({ message: 'Erro de validação', errors: messages });
-      return; // <<< ADICIONEI RETURN
+      return; 
     }
     console.error('Erro no registro:', error);
     res.status(500).json({ message: 'Erro interno do servidor ao tentar registrar o usuário.' });
-    // Não precisa de return aqui se for a última instrução do catch
+   
   }
 };
 
@@ -91,20 +90,20 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
 
   if (!email || !password) {
     res.status(400).json({ message: 'Por favor, forneça email e senha.' });
-    return; // <<< ADICIONEI RETURN
+    return;
   }
 
   try {
     const user = await User.scope('withPassword').findOne({ where: { email } });
     if (!user || !user.password) {
       res.status(401).json({ message: 'Credenciais inválidas (email não encontrado ou problema interno).' });
-      return; // <<< ADICIONEI RETURN
+      return; 
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       res.status(401).json({ message: 'Credenciais inválidas (senha incorreta).' });
-      return; // <<< ADICIONEI RETURN
+      return; 
     }
 
     const token = generateToken(user.id, user.email);
@@ -117,16 +116,15 @@ export const loginUser = async (req: Request, res: Response): Promise<void> => {
       token,
       user: userResponse,
     });
-    // Não precisa de return aqui
 
   } catch (error: any) {
     if (error.message && error.message.includes('token de autenticação')) {
         res.status(500).json({ message: error.message });
-        return; // <<< ADICIONEI RETURN
+        return; 
     }
     console.error('Erro no login:', error);
     res.status(500).json({ message: 'Erro interno do servidor ao tentar fazer login.' });
-    // Não precisa de return aqui
+   
   }
 };
 
