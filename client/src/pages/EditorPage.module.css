@@ -1,0 +1,109 @@
+/* src/pages/EditorPage.module.css */
+
+.editorPage {
+  display: flex; /* Para o filho (textArea) poder usar flex-grow */
+  flex-direction: column;
+  flex-grow: 1; /* Faz esta div ocupar o espaço vertical disponível no <main> do App.tsx */
+  background-color: black; 
+  overflow: hidden; /* Evita scrollbars desnecessárias na editorPage div */
+}
+
+.toolbar {
+  padding: 8px 10px;
+  border-bottom: 1px solid #30363d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-shrink: 0;
+  background-color: #0d1117;
+}
+
+.button {
+  margin: 0 5px;
+  padding: 6px 12px;
+  cursor: pointer;
+  background-color: #21262d;
+  color: #c9d1d9;
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  font-size: 0.9em;
+  transition: background-color 0.2s;
+}
+
+.button:hover:not(:disabled) {
+  background-color: #30363d;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.shareInfo {
+  padding: 15px;
+  margin: 10px; /* Adiciona margem para não colar na toolbar ou textarea */
+  border: 1px solid #30363d;
+  border-radius: 6px;
+  background-color: #161b22;
+  color: #c9d1d9;
+  font-size: 0.9em;
+  flex-shrink: 0; /* Para não encolher se o conteúdo do textarea for grande */
+}
+
+.shareInfo p {
+  margin-bottom: 8px;
+}
+
+.shareInfo hr {
+  margin: 12px 0;
+  border: 0; /* Limpa borda padrão */
+  border-top: 1px solid #30363d; /* Adiciona borda customizada */
+}
+
+
+.code {
+  background-color: #21262d;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  word-break: break-all;
+}
+
+.textArea {
+  flex-grow: 1; /* Ocupa o espaço vertical restante dentro de .editorPage */
+  width: 100%;
+  padding: 20px;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: black;
+  color: white;
+  border: none;
+  resize: none;
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  outline: none;
+}
+
+.textArea::placeholder {
+  color: #555;
+}
+
+.statusBar {
+  padding: 8px 15px;
+  font-size: 0.85em;
+  color: #8b949e;
+  text-align: right;
+  border-top: 1px solid #30363d;
+  flex-shrink: 0;
+  background-color: #0d1117;
+}
+
+.errorDisplay {
+  color: #f85149;
+  padding: 10px;
+  text-align: center;
+  background-color: rgba(248, 81, 73, 0.1);
+  /* border-bottom: 1px solid #f85149; Removido para não ter borda dupla com a toolbar */
+  word-break: break-word;
+  font-size: 0.9em;
+  flex-shrink: 0;
+}
