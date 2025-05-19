@@ -1,0 +1,106 @@
+
+
+.page { /* Antigo pageStyle */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 60px - 40px); /* 100vh - altura da navbar - padding do appContainer (ajuste se necessário) */
+  color: white;
+  padding: 20px;
+}
+
+.formContainer { /* Antigo formContainerStyle (que envolvia o form) e parte do formStyle */
+  display: flex;
+  flex-direction: column;
+  width: 100%; 
+  max-width: 350px;
+  padding: 30px; /* Aumentei padding */
+  border: 1px solid #30363d; 
+  border-radius: 8px;
+  background-color: #161b22; 
+  text-align: center; /* Para centralizar o h2 e o parágrafo do link de registro */
+}
+
+.form { /* Para o elemento <form> em si */
+    display: flex;
+    flex-direction: column;
+    gap: 18px; /* Espaçamento entre os grupos de label/input e botão */
+    width: 100%;
+}
+
+.formGroup { /* Para envolver cada label + input */
+    text-align: left; /* Alinha labels à esquerda */
+}
+
+.label { /* Antigo labelStyle */
+  display: block;
+  margin-bottom: 5px;
+  font-size: 0.9em;
+  color: #c9d1d9; /* Cor de texto clara */
+}
+
+.input { /* Antigo inputStyle */
+  padding: 12px; 
+  border-radius: 6px; 
+  border: 1px solid #30363d;
+  background-color: #0d1117;
+  color: #c9d1d9;
+  font-size: 1em;
+  width: 100%; /* Para ocupar a largura da .formGroup */
+}
+
+.button { /* Antigo buttonStyle */
+  padding: 12px;
+  border-radius: 6px;
+  border: none;
+  background-color: #238636; /* Verde do GitHub */
+  color: white;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 500;
+  width: 100%;
+  margin-top: 10px; /* Espaço acima do botão */
+}
+
+.button:disabled {
+    background-color: #519a57;
+    cursor: not-allowed;
+}
+
+.link { /* Antigo linkStyle */
+  color: #58a6ff; /* Azul do GitHub */
+  margin-top: 25px; /* Aumentei margem */
+  text-decoration: none;
+  display: inline-block; /* Para que a margem funcione bem */
+}
+
+.title { /* Para o h2 */
+    margin-bottom: 25px;
+    color: #c9d1d9;
+}
+
+/* Estilos de Mensagem (error e success) */
+.messageBase { /* Antigo messageBaseStyle */
+  padding: 10px 15px;
+  margin: 0 0 15px 0; /* Margem apenas abaixo, antes do botão */
+  border-radius: 6px;
+  text-align: center;
+  width: 100%; 
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+
+.errorMessage { /* Antigo errorStyle */
+  color-scheme: messageBase; /* Herda de messageBase */
+  color: #f85149; 
+  background-color: rgba(248, 81, 73, 0.15); 
+  border: 1px solid rgba(248, 81, 73, 0.4);
+}
+
+.successMessage { /* Antigo successStyle */
+  color-scheme: messageBase; /* Herda de messageBase */
+  color: '#3fb950'; 
+  background-color: rgba(63, 185, 80, 0.15); 
+  border: '1px solid rgba(63, 185, 80, 0.4)';
+}

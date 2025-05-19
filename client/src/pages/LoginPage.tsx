@@ -1,11 +1,14 @@
 // src/pages/LoginPage.tsx
-import React, { useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import styles from "./LoginPage.module.css"; // <<< 1. IMPORTE O ARQUIVO CSS MODULE
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // const [error, setError] = useState<string | null>(null); // Não é mais necessário se alert() for usado
+  // const [successMessage, setSuccessMessage] = useState<string | null>(null); // Não é mais necessário
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { login } = useAuth();
@@ -23,88 +26,26 @@ const LoginPage = () => {
 
     try {
       await login(email, password);
-      alert("Login bem-sucedido! Redirecionando..."); 
-      navigate("/"); 
- 
+      alert("Login bem-sucedido! Redirecionando...");
+      navigate("/");
     } catch (err) {
       let errorMessage = "Ocorreu um erro desconhecido no login.";
       if (err instanceof Error) {
         errorMessage =
           err.message || "Falha no login. Verifique suas credenciais.";
       }
-      alert(errorMessage); 
+      alert(errorMessage);
       setIsSubmitting(false);
     }
   };
 
-
-  const pageStyle: React.CSSProperties = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    minHeight: "calc(100vh - 60px - 40px)",
-    color: "white",
-    padding: "20px",
-  };
-  const formContainerStyle: React.CSSProperties = {
-    display: "flex",
-    flexDirection: "column",
-    gap: "15px",
-    width: "100%",
-    maxWidth: "350px",
-    padding: "25px",
-    border: "1px solid #30363d",
-    borderRadius: "8px",
-    backgroundColor: "#161b22",
-  };
-  const inputStyle: React.CSSProperties = {
-    padding: "12px",
-    borderRadius: "6px",
-    border: "1px solid #30363d",
-    backgroundColor: "#0d1117",
-    color: "#c9d1d9",
-    fontSize: "1em",
-  };
-  const buttonStyle: React.CSSProperties = {
-    padding: "12px",
-    borderRadius: "6px",
-    border: "none",
-    backgroundColor: "#238636",
-    color: "white",
-    cursor: "pointer",
-    fontSize: "1em",
-    fontWeight: "500",
-  };
-  const linkStyle: React.CSSProperties = {
-    color: "#58a6ff",
-    marginTop: "20px",
-    textDecoration: "none",
-  };
-  const labelStyle: React.CSSProperties = {
-    display: "block",
-    marginBottom: "5px",
-    fontSize: "0.9em",
-  };
-
   return (
-    <div style={pageStyle}>
-      <div style={formContainerStyle}>
-        <h2
-          style={{
-            textAlign: "center",
-            marginBottom: "20px",
-            color: "#c9d1d9",
-          }}
-        >
-          Login - Flashnote
-        </h2>
-        <form
-          onSubmit={handleSubmit}
-          style={{ display: "flex", flexDirection: "column", gap: "18px" }}
-        >
-          <div>
-            <label htmlFor="email" style={labelStyle}>
+    <div className={styles.page}>
+      <div className={styles.formContainer}>
+        <h2 className={styles.title}>Login - Flashnote</h2>
+        <form onSubmit={handleSubmit} className={styles.form}>
+          <div className={styles.formGroup}>
+            <label htmlFor="email" className={styles.label}>
               Email:
             </label>
             <input
@@ -113,12 +54,12 @@ const LoginPage = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              style={inputStyle}
+              className={styles.input}
               placeholder="seu@email.com"
             />
           </div>
-          <div>
-            <label htmlFor="password" style={labelStyle}>
+          <div className={styles.formGroup}>
+            <label htmlFor="password" className={styles.label}>
               Senha:
             </label>
             <input
@@ -127,20 +68,22 @@ const LoginPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              style={inputStyle}
+              className={styles.input}
               placeholder="Sua senha"
             />
           </div>
-          {/* Remova ou comente as linhas abaixo se for usar apenas alert() */}
-          {/* {error && <p style={errorStyle}>{error}</p>} */}
-          {/* {successMessage && <p style={successStyle}>{successMessage}</p>} */}
-          <button type="submit" disabled={isSubmitting} style={buttonStyle}>
+          <button
+            type="submit"
+            disabled={isSubmitting}
+            className={styles.button}
+          >
             {isSubmitting ? "Entrando..." : "Entrar"}
           </button>
         </form>
-        <p style={{ marginTop: "20px", textAlign: "center" }}>
+        <p style={{ marginTop: "25px" }}>
+          {" "}
           Não tem uma conta?{" "}
-          <Link to="/register" style={linkStyle}>
+          <Link to="/register" className={styles.link}>
             Registre-se aqui
           </Link>
         </p>

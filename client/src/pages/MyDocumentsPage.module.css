@@ -1,0 +1,99 @@
+
+
+.page {
+  padding: 20px 30px;
+  color: #c9d1d9;
+  flex-grow: 1;
+}
+
+.heading {
+  border-bottom: 1px solid #30363d;
+  padding-bottom: 10px;
+  margin-bottom: 25px; /* Aumentei um pouco a margem inferior */
+  color: #c9d1d9;
+  font-size: 1.8em; /* Um pouco maior */
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+}
+
+.listItem {
+  margin-bottom: 12px;
+  padding: 15px 20px; /* Aumentei padding */
+  background-color: #161b22;
+  border-radius: 6px;
+  border: 1px solid #30363d;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.listItem:hover {
+  background-color: #21262d; /* Efeito hover sutil */
+}
+
+.docInfoLink { /* Para o Link que envolve o slug */
+  color: #58a6ff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.15em; /* Aumentei um pouco */
+}
+
+.docInfoLink:hover {
+  text-decoration: underline;
+}
+
+.date {
+  font-size: 0.8em;
+  color: #8b949e;
+  display: block;
+  margin-top: 6px;
+}
+
+.deleteButton {
+  margin-left: 15px; /* Aumentei a margem */
+  padding: 6px 12px; /* Aumentei padding */
+  font-size: 0.9em;
+  background-color: #da3633;
+  color: white;
+  border: 1px solid rgba(240, 246, 252, 0.1);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.deleteButton:hover:not(:disabled) {
+  background-color: #c93c37; /* Escurece um pouco no hover */
+}
+
+.deleteButton:disabled {
+  background-color: #6e7681;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.noDocumentsMessage {
+    margin-top: 20px;
+    font-style: italic;
+    color: #8b949e;
+}
+
+.noDocumentsLink { /* Para o Link dentro da mensagem de "sem documentos" */
+    color: #58a6ff;
+    text-decoration: none;
+}
+
+.noDocumentsLink:hover {
+    text-decoration: underline;
+}
+
+.loadingMessage, .errorMessage {
+    margin-top: 20px;
+    font-size: 1.1em;
+}
+.errorMessage {
+    color: #f85149;
+}

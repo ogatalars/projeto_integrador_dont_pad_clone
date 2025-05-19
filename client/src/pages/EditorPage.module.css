@@ -1,10 +1,9 @@
-
 .editorPage {
-  display: flex; /* Para o filho (textArea) poder usar flex-grow */
+  display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Faz esta div ocupar o espaço vertical disponível no <main> do App.tsx */
+  flex-grow: 1;
   background-color: black; 
-  overflow: hidden; /* Evita scrollbars desnecessárias na editorPage div */
+  overflow: hidden; 
 }
 
 .toolbar {
@@ -13,8 +12,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-shrink: 0;
-  background-color: #0d1117;
+  flex-shrink: 0; 
+  background-color: #0d1117; 
 }
 
 .button {
@@ -40,13 +39,13 @@
 
 .shareInfo {
   padding: 15px;
-  margin: 10px; /* Adiciona margem para não colar na toolbar ou textarea */
+  margin: 10px;
   border: 1px solid #30363d;
   border-radius: 6px;
   background-color: #161b22;
   color: #c9d1d9;
   font-size: 0.9em;
-  flex-shrink: 0; /* Para não encolher se o conteúdo do textarea for grande */
+  flex-shrink: 0;
 }
 
 .shareInfo p {
@@ -55,27 +54,26 @@
 
 .shareInfo hr {
   margin: 12px 0;
-  border: 0; /* Limpa borda padrão */
-  border-top: 1px solid #30363d; /* Adiciona borda customizada */
+  border: 0;
+  border-top: 1px solid #30363d;
 }
-
 
 .code {
   background-color: #21262d;
   padding: 3px 6px;
   border-radius: 4px;
   font-family: 'Courier New', Courier, monospace;
-  word-break: break-all;
+  word-break: break-all; 
 }
 
 .textArea {
-  flex-grow: 1; /* Ocupa o espaço vertical restante dentro de .editorPage */
+  flex-grow: 1;
   width: 100%;
   padding: 20px;
   font-size: 16px;
   line-height: 1.6;
-  background-color: black;
-  color: white;
+  background-color: black; 
+  color: white;           
   border: none;
   resize: none;
   font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
@@ -83,7 +81,7 @@
 }
 
 .textArea::placeholder {
-  color: #555;
+  color: #555; 
 }
 
 .statusBar {
@@ -101,8 +99,17 @@
   padding: 10px;
   text-align: center;
   background-color: rgba(248, 81, 73, 0.1);
-  /* border-bottom: 1px solid #f85149; Removido para não ter borda dupla com a toolbar */
   word-break: break-word;
   font-size: 0.9em;
   flex-shrink: 0;
+}
+
+.loadingFullPage { 
+    color: white;
+    text-align: center;
+    padding-top: 50px;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

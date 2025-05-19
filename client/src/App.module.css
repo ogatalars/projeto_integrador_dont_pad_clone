@@ -1,0 +1,86 @@
+
+.appContainer {
+  margin: 0 auto;
+  background-color: #0d1117;
+  color: white; /* Cor de texto padrão para o app */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #30363d;
+  background-color: #161b22;
+  flex-shrink: 0;
+  height: 60px; /* Altura fixa da navbar */
+}
+
+.navBrandLink { /* Antigo mainTitleStyle e parte do navLinksStyle */
+  color: #c9d1d9;
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-right: 20px; /* Espaço antes do próximo link, se houver */
+}
+
+.navLink { /* Antigo navLinksStyle para "Meus Documentos" */
+  color: #c9d1d9;
+  text-decoration: none;
+  font-size: 1.0em; /* Ajustado para ser um pouco menor que a brand */
+  font-weight: 500;
+  margin-right: 20px;
+  transition: color 0.2s ease-in-out;
+}
+
+.navLink:hover {
+    color: #58a6ff; /* Azul para hover */
+}
+
+.authLinksContainer {
+  display: flex;
+  align-items: center;
+}
+
+.userInfo {
+  margin-right: 15px;
+  font-size: 0.9em;
+  color: #8b949e;
+}
+
+.authLink { /* Para Login/Registro */
+  margin-left: 15px; /* Mudado para marginLeft para espaçar do item anterior */
+  color: #58a6ff;
+  text-decoration: none;
+  font-size: 0.95em;
+  transition: color 0.2s ease-in-out;
+}
+
+.authLink:hover {
+    color: #80bfff; /* Um azul mais claro para hover */
+}
+
+.logoutButton {
+  background: none;
+  border: 1px solid #f85149;
+  color: #f85149;
+  cursor: pointer;
+  font-size: 0.95em;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.logoutButton:hover {
+    background-color: rgba(248, 81, 73, 0.1); /* Fundo vermelho bem sutil no hover */
+}
+
+.mainContent { /* Para o elemento <main> */
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Adiciona scroll se o conteúdo da página for maior */
+}
