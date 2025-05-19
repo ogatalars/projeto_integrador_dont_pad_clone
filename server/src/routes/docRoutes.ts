@@ -6,6 +6,7 @@ import {
   updateDocument,
   getUserDocuments,
   generateOrGetEditToken,
+  deleteDocumentBySlug,
 } from '../controllers/docController';
 import { protect } from '../middlewares/authMiddleware'; // Nosso middleware de autenticação
 
@@ -37,5 +38,7 @@ router.put('/:slug', protect, updateDocument);
 // POST /api/docs/:slug/edit-token -> Gerar/obter um token de edição para um documento
 // Protegida: Somente o proprietário do documento (logado) pode gerar este token.
 router.post('/:slug/edit-token', protect, generateOrGetEditToken);
+
+router.delete('/:slug', protect, deleteDocumentBySlug);
 
 export default router;

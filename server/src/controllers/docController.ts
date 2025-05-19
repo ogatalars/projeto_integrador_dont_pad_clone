@@ -205,3 +205,44 @@ export const generateOrGetEditToken = async (req: AuthenticatedRequest, res: Res
     res.status(500).json({ message: 'Erro interno do servidor.' });
   }
 };
+
+/**
+ * @desc    Deletar um documento pelo seu slug
+ * @route   DELETE /api/docs/:slug
+ * @access  Private (proprietário do documento)
+ */
+export const deleteDocumentBySlug = async (req: AuthenticatedRequest, res: Response): Promise<void> => {
+  try {
+    const { slug } = req.params;
+
+    if (!req.user) {
+      res.status(401).json({ message: 'Não autorizado.' });
+      return;
+    }
+
+    const document = await Document.findOne({ where: { slug } });
+
+    if (!document) {
+      res.status(404).json({ message: 'Documento não encontrado.' });
+      return;
+    }
+
+    // Verifica se o usuário logado é o proprietário do documento
+    if (document.ownerId !== req.user.id) {
+      res.status(403).json({ message: 'Você não tem permissão para deletar este documento.' });
+      return;
+    }
+
+    await document.destroy(); // Deleta o documento
+
+    res.status(200).json({ message: 'Documento deletado com sucesso.' }); // Ou status 204 No Content
+
+  } catch (error: unknown) {
+    console.error('Erro ao deletar documento:', error);
+    let displayMessage = 'Erro interno do servidor ao deletar documento.';
+    if (error instanceof Error) {
+      displayMessage = error.message;
+    }
+    res.status(500).json({ message: displayMessage });
+  }
+};

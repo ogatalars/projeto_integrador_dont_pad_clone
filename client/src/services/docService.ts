@@ -89,3 +89,8 @@ export const generateEditToken = async (
   );
   return response.data;
 };
+
+export const deleteDocument = async (slug: string): Promise<{ message: string }> => {
+  const response = await apiClient.delete<{ message: string }>(`/docs/${slug}`);
+  return response.data;
+};
