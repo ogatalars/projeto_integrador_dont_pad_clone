@@ -59,3 +59,66 @@ Siga os passos abaixo para configurar e rodar o projeto na sua máquina local.
    ```bash
    git clone <URL_DO_SEU_REPOSITORIO_GIT>
    cd <NOME_DA_PASTA_DO_PROJETO>
+
+   2. Configuração do Backend:
+
+Navegue até a pasta do servidor:
+
+
+cd server
+
+Instale as dependências:
+
+
+npm install
+
+Crie um arquivo .env na pasta server (copie de server/.env.example se você criar um, ou crie um novo) com o seguinte conteúdo:
+
+
+# server/.env
+PORT=5001
+NODE_ENV=development
+
+# Configurações do Sequelize para SQLite
+DB_DIALECT=sqlite
+DB_STORAGE=./database.sqlite
+
+# Segredos JWT (IMPORTANTE: Gere um segredo forte e único!)
+JWT_SECRET=SEU_SEGREDO_JWT_SUPER_FORTE_E_SECRETO_AQUI
+JWT_EXPIRES_IN=7d
+Nota: Para JWT_SECRET, use uma string longa, aleatória e segura.
+Inicie o servidor de desenvolvimento do backend:
+
+
+npm run dev
+
+O servidor backend estará rodando em http://localhost:5001 (ou a porta definida no seu .env). O arquivo database.sqlite será criado automaticamente na pasta server na primeira vez que o servidor iniciar com sucesso após a configuração dos modelos.
+3. Configuração do Frontend:
+
+Abra um novo terminal (mantenha o terminal do backend rodando).
+Navegue da raiz do projeto para a pasta do cliente:
+
+
+cd client 
+# (Ou 'cd ../client' se você ainda estiver na pasta 'server')
+Instale as dependências:
+Bash
+
+npm install
+
+Crie um arquivo .env na pasta client com o seguinte conteúdo, apontando para o seu backend local:
+
+# client/.env
+VITE_API_BASE_URL=http://localhost:5001/api
+Inicie o servidor de desenvolvimento do frontend:
+
+npm run dev
+
+
+O frontend estará acessível em http://localhost:5173 (ou a porta indicada pelo Vite no console).
+4. Usando a Aplicação:
+
+Abra a URL do frontend (ex: http://localhost:5173) no seu navegador.
+Você poderá se registrar como um novo usuário.
+Faça login com suas credenciais.
+Crie, edite, salve e compartilhe seus documentos de texto!
