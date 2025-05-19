@@ -7,8 +7,6 @@ const RegisterPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { register } = useAuth();
@@ -16,144 +14,95 @@ const RegisterPage = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError(null);
-    setSuccessMessage(null);
+
     setIsSubmitting(true);
 
     if (!email || !password || !confirmPassword) {
-      setError("Por favor, preencha todos os campos.");
+      alert("Por favor, preencha todos os campos."); 
       setIsSubmitting(false);
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("As senhas não coincidem.");
+      alert("As senhas não coincidem."); 
       setIsSubmitting(false);
       return;
     }
 
     try {
       await register(email, password);
-      setSuccessMessage(
-        "Registro bem-sucedido! Você será redirecionado para o login em breve."
-      );
-      setTimeout(() => {
-        navigate("/login");
-      }, 3000); // Redireciona após 3 segundos
+      alert("Registro bem-sucedido! Você será redirecionado para o login.");
+      navigate("/login"); 
     } catch (err) {
+      let errorMessage = "Ocorreu um erro desconhecido no registro.";
       if (err instanceof Error) {
-        setError(err.message || "Falha no registro. Tente novamente.");
-      } else {
-        setError("Ocorreu um erro desconhecido.");
+        errorMessage = err.message || "Falha no registro. Tente novamente.";
       }
-    } finally {
+      alert(errorMessage); 
       setIsSubmitting(false);
     }
+
   };
 
-  // Reutilizando estilos da LoginPage para consistência
   const pageStyle: React.CSSProperties = {
-    /* ... (copie de LoginPage) ... */
+    display: "flex", flexDirection: "column", alignItems: "center",
+    justifyContent: "center", minHeight: "calc(100vh - 60px - 20px)", // Ajustado para RegisterPage
+    color: "white", padding: "20px",
   };
-  const formStyle: React.CSSProperties = {
-    /* ... (copie de LoginPage) ... */
+  const formContainerStyle: React.CSSProperties = {
+    display: "flex", flexDirection: "column", width: "100%", 
+    maxWidth: "380px", padding: "30px", border: "1px solid #30363d", 
+    borderRadius: "8px", backgroundColor: "#161b22", 
   };
   const inputStyle: React.CSSProperties = {
-    /* ... (copie de LoginPage) ... */
+    padding: "12px", borderRadius: "6px", border: "1px solid #30363d",
+    backgroundColor: "#0d1117", color: "#c9d1d9", fontSize: "1em", width: '100%',
   };
   const buttonStyle: React.CSSProperties = {
-    /* ... (copie de LoginPage) ... */
-  };
-  const errorStyle: React.CSSProperties = {
-    color: "red",
-    marginBottom: "10px",
-  };
-  const successStyle: React.CSSProperties = {
-    color: "green",
-    marginBottom: "10px",
+    padding: "12px", borderRadius: "6px", border: "none",
+    backgroundColor: "#238636", color: "white", cursor: "pointer",
+    fontSize: "1em", fontWeight: "500", width: '100%', marginTop: '10px',
   };
   const linkStyle: React.CSSProperties = {
-    color: "#61dafb",
-    marginTop: "15px",
-    textDecoration: "none",
+    color: "#58a6ff", marginTop: "20px", textDecoration: "none",
   };
-
-  // Copie os objetos de estilo pageStyle, formStyle, inputStyle, buttonStyle de LoginPage.tsx
-  // para manter a consistência visual ou, idealmente, mova-os para um arquivo CSS/módulo CSS.
-  // Por simplicidade, vou repetir aqui, mas em um projeto real, reutilize/centralize.
-  pageStyle.minHeight = "85vh"; // Um pouco mais de espaço para o campo extra
+  const labelStyle: React.CSSProperties = { 
+    display: "block", marginBottom: "5px", fontSize: '0.9em',
+  };
 
   return (
     <div style={pageStyle}>
-      <h2>Registrar - Flashnote</h2>
-      <form onSubmit={handleSubmit} style={formStyle}>
-        <div>
-          <label
-            htmlFor="email"
-            style={{ display: "block", marginBottom: "5px" }}
-          >
-            Email:
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={inputStyle}
-            placeholder="seu@email.com"
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="password"
-            style={{ display: "block", marginBottom: "5px" }}
-          >
-            Senha:
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            minLength={6}
-            style={inputStyle}
-            placeholder="Mínimo 6 caracteres"
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="confirmPassword"
-            style={{ display: "block", marginBottom: "5px" }}
-          >
-            Confirmar Senha:
-          </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            minLength={6}
-            style={inputStyle}
-            placeholder="Repita a senha"
-          />
-        </div>
-        {error && <p style={errorStyle}>{error}</p>}
-        {successMessage && <p style={successStyle}>{successMessage}</p>}
-        <button type="submit" disabled={isSubmitting} style={buttonStyle}>
-          {isSubmitting ? "Registrando..." : "Registrar"}
-        </button>
-      </form>
-      <p style={{ marginTop: "20px" }}>
-        Já tem uma conta?{" "}
-        <Link to="/login" style={linkStyle}>
-          Faça login
-        </Link>
-      </p>
+      <div style={formContainerStyle}>
+        <h2 style={{ textAlign: 'center', marginBottom: '25px', color: '#c9d1d9' }}>Registrar - Flashnote</h2>
+        <form onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', gap: '18px'}}>
+          <div>
+            <label htmlFor="email" style={labelStyle}>Email:</label>
+            <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required style={inputStyle} placeholder="seu@email.com" />
+          </div>
+          <div>
+            <label htmlFor="password" style={labelStyle}>Senha:</label>
+            <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required minLength={6} style={inputStyle} placeholder="Mínimo 6 caracteres" />
+          </div>
+          <div>
+            <label htmlFor="confirmPassword" style={labelStyle}>Confirmar Senha:</label>
+            <input type="password" id="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required minLength={6} style={inputStyle} placeholder="Repita a senha" />
+          </div>
+          
+
+          
+          <button type="submit" disabled={isSubmitting} style={buttonStyle}>
+            {isSubmitting ? "Registrando..." : "Registrar"}
+          </button>
+        </form>
+        <p style={{ marginTop: "25px", textAlign: 'center' }}>
+          Já tem uma conta?{" "}
+          <Link to="/login" style={linkStyle}>
+            Faça login
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };
-// Estilos para copiar de LoginPage (para manter este exemplo conciso, apenas um lembrete)
+
 export default RegisterPage;

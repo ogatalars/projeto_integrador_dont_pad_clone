@@ -1,4 +1,3 @@
-/* src/pages/EditorPage.module.css */
 
 .editorPage {
   display: flex; /* Para o filho (textArea) poder usar flex-grow */

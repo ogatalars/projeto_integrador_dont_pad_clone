@@ -1,12 +1,11 @@
 // src/pages/LoginPage.tsx
 import React, { useState, type FormEvent } from "react";
-import { useNavigate, Link } from "react-router-dom"; // Link para ir para registro
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { login } = useAuth();
@@ -14,134 +13,138 @@ const LoginPage = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setError(null);
     setIsSubmitting(true);
 
     if (!email || !password) {
-      setError("Por favor, preencha todos os campos.");
+      alert("Por favor, preencha todos os campos.");
       setIsSubmitting(false);
       return;
     }
 
     try {
       await login(email, password);
-      // Se o login for bem-sucedido, o AuthContext vai atualizar o estado
-      // e podemos redirecionar para a página principal ou uma página de "novo documento".
-      // O AuthProvider pode ter uma lógica para redirecionar se já autenticado,
-      // ou podemos fazer isso aqui.
-      navigate("/"); // Redireciona para a home (que é o EditorPage)
+      alert("Login bem-sucedido! Redirecionando..."); 
+      navigate("/"); 
+ 
     } catch (err) {
+      let errorMessage = "Ocorreu um erro desconhecido no login.";
       if (err instanceof Error) {
-        setError(err.message || "Falha no login. Verifique suas credenciais.");
-      } else {
-        setError("Ocorreu um erro desconhecido.");
+        errorMessage =
+          err.message || "Falha no login. Verifique suas credenciais.";
       }
-    } finally {
+      alert(errorMessage); 
       setIsSubmitting(false);
     }
   };
 
-  // Aplicando um estilo básico inline para simular o design escuro
+
   const pageStyle: React.CSSProperties = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    minHeight: "80vh", // Ajuste conforme necessário após a navbar
-    // backgroundColor: 'black', // O body já deve estar preto pelo seu CSS
+    minHeight: "calc(100vh - 60px - 40px)",
     color: "white",
     padding: "20px",
   };
-
-  const formStyle: React.CSSProperties = {
+  const formContainerStyle: React.CSSProperties = {
     display: "flex",
     flexDirection: "column",
     gap: "15px",
-    width: "300px", // Largura do formulário
-    padding: "20px",
-    border: "1px solid #333",
+    width: "100%",
+    maxWidth: "350px",
+    padding: "25px",
+    border: "1px solid #30363d",
     borderRadius: "8px",
-    backgroundColor: "#1a1a1a",
+    backgroundColor: "#161b22",
   };
-
   const inputStyle: React.CSSProperties = {
-    padding: "10px",
-    borderRadius: "4px",
-    border: "1px solid #444",
-    backgroundColor: "#333",
-    color: "white",
+    padding: "12px",
+    borderRadius: "6px",
+    border: "1px solid #30363d",
+    backgroundColor: "#0d1117",
+    color: "#c9d1d9",
+    fontSize: "1em",
   };
-
   const buttonStyle: React.CSSProperties = {
-    padding: "10px",
-    borderRadius: "4px",
+    padding: "12px",
+    borderRadius: "6px",
     border: "none",
-    backgroundColor: "#007bff", // Um azul para destaque
+    backgroundColor: "#238636",
     color: "white",
     cursor: "pointer",
     fontSize: "1em",
+    fontWeight: "500",
   };
-
-  const errorStyle: React.CSSProperties = {
-    color: "red",
-    marginBottom: "10px",
-  };
-
   const linkStyle: React.CSSProperties = {
-    color: "#61dafb", // Cor para o link
-    marginTop: "15px",
+    color: "#58a6ff",
+    marginTop: "20px",
     textDecoration: "none",
+  };
+  const labelStyle: React.CSSProperties = {
+    display: "block",
+    marginBottom: "5px",
+    fontSize: "0.9em",
   };
 
   return (
     <div style={pageStyle}>
-      <h2>Login - Flashnote</h2>
-      <form onSubmit={handleSubmit} style={formStyle}>
-        <div>
-          <label
-            htmlFor="email"
-            style={{ display: "block", marginBottom: "5px" }}
-          >
-            Email:
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={inputStyle}
-            placeholder="seu@email.com"
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="password"
-            style={{ display: "block", marginBottom: "5px" }}
-          >
-            Senha:
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={inputStyle}
-            placeholder="Sua senha"
-          />
-        </div>
-        {error && <p style={errorStyle}>{error}</p>}
-        <button type="submit" disabled={isSubmitting} style={buttonStyle}>
-          {isSubmitting ? "Entrando..." : "Entrar"}
-        </button>
-      </form>
-      <p style={{ marginTop: "20px" }}>
-        Não tem uma conta?{" "}
-        <Link to="/register" style={linkStyle}>
-          Registre-se aqui
-        </Link>
-      </p>
+      <div style={formContainerStyle}>
+        <h2
+          style={{
+            textAlign: "center",
+            marginBottom: "20px",
+            color: "#c9d1d9",
+          }}
+        >
+          Login - Flashnote
+        </h2>
+        <form
+          onSubmit={handleSubmit}
+          style={{ display: "flex", flexDirection: "column", gap: "18px" }}
+        >
+          <div>
+            <label htmlFor="email" style={labelStyle}>
+              Email:
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              style={inputStyle}
+              placeholder="seu@email.com"
+            />
+          </div>
+          <div>
+            <label htmlFor="password" style={labelStyle}>
+              Senha:
+            </label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              style={inputStyle}
+              placeholder="Sua senha"
+            />
+          </div>
+          {/* Remova ou comente as linhas abaixo se for usar apenas alert() */}
+          {/* {error && <p style={errorStyle}>{error}</p>} */}
+          {/* {successMessage && <p style={successStyle}>{successMessage}</p>} */}
+          <button type="submit" disabled={isSubmitting} style={buttonStyle}>
+            {isSubmitting ? "Entrando..." : "Entrar"}
+          </button>
+        </form>
+        <p style={{ marginTop: "20px", textAlign: "center" }}>
+          Não tem uma conta?{" "}
+          <Link to="/register" style={linkStyle}>
+            Registre-se aqui
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };
