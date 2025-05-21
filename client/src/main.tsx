@@ -16,9 +16,8 @@ import { AuthProvider } from "./contexts/AuthContext.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/projeto_integrador_dont_pad_clone"> 
       <AuthProvider>
-        {" "}
         <App />
       </AuthProvider>
     </BrowserRouter>
