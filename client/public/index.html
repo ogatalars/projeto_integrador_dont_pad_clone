@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Flashnote - Redirecionando...</title>
+    <script type="text/javascript">
+      // Define o caminho base da sua aplicação no GitHub Pages.
+      // Deve ser o mesmo que você configurou em `vite.config.ts` e no `BrowserRouter`.
+      const basePath = "/projeto_integrador_dont_pad_clone/"; 
+
+      // Guarda a URL completa que o usuário tentou acessar.
+      sessionStorage.redirect = location.href;
+
+      // Redireciona para a raiz da sua aplicação no GitHub Pages.
+      // O `index.html` principal cuidará de ler `sessionStorage.redirect`.
+      location.href = basePath;
+    </script>
+  </head>
+  <body>
+    Redirecionando... Se você não for redirecionado automaticamente,
+    <a id="redirect-link" href="#">clique aqui</a>.
+    <script type="text/javascript">
+      // Atualiza o link de fallback, caso o script acima falhe por algum motivo raro.
+      document.getElementById("redirect-link").href = basePath;
+    </script>
+  </body>
+</html>
