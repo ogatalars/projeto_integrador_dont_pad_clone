@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Flashnote - Redirecionando...</title>
+    <script type="text/javascript">
+      const basePath = "/projeto_integrador_dont_pad_clone/"; 
+      sessionStorage.redirect = location.href;
+      location.href = basePath;
+    </script>
+  </head>
+  <body>
+    Redirecionando... Se você não for redirecionado automaticamente,
+    <a id="redirect-link" href="#">clique aqui</a>.
+    <script type="text/javascript">
+      document.getElementById("redirect-link").href = basePath;
+    </script>
+  </body>
+</html>
