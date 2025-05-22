@@ -29,7 +29,7 @@ Além disso, a praticidade é um ponto central: o Flashnote pode ser acessado de
 * Frontend -> react + typescript -> vite
 * Banco de dados fisico -> SQLite (local); Servidor RENDER -> PostgreSQL
 * Autenticação de usuário com JWT
-* Gravação do video -> OBS. Link -> 
+* Gravação do video -> OBS.
 
 ## Tecnologias Utilizadas
 
