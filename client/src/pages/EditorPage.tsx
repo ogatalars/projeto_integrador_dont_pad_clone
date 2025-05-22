@@ -9,7 +9,7 @@ import {
     generateEditToken, 
     type DocumentData 
 } from '../services/docService';
-import styles from './EditorPage.module.css'; // <<< 1. IMPORTE O ARQUIVO CSS MODULE
+import styles from './EditorPage.module.css'; 
 
 const EditorPage: React.FC = () => {
   const { slug } = useParams<{ slug?: string }>();

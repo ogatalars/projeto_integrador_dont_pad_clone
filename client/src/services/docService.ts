@@ -1,47 +1,39 @@
 // client/src/services/docService.ts
 import apiClient from "./api";
 
-// 1. DEFINA AS INTERFACES DIRETAMENTE NO FRONTEND
-// Esta interface representa a estrutura de um documento como recebido da API
 export interface DocumentApiResponse {
   id: number;
   slug: string;
   content: string;
-  ownerId: number; // O frontend pode precisar disso para lógica de UI, ex: "é meu documento?"
-  editToken?: string | null; // Pode vir ou não da API, dependendo do endpoint
-  createdAt: string; // Datas geralmente vêm como strings de APIs JSON
+  ownerId: number;
+  editToken?: string | null;
+  createdAt: string;
   updatedAt: string;
 }
 
-// Interface para o que esperamos da API ao buscar um documento específico para leitura
-// Pode ser a mesma que DocumentApiResponse ou mais simples se menos campos forem retornados
 export interface DocumentData {
   slug: string;
   content: string;
   updatedAt: string;
 }
 
-// Interface para a lista de documentos do usuário
 export interface UserDocumentListItem {
   slug: string;
   updatedAt: string;
 }
 
-// Interface para resposta da criação de documento
 export interface CreateDocumentResponse {
   message: string;
   slug: string;
-  document: DocumentApiResponse; // <<< Usando a interface definida no frontend
+  document: DocumentApiResponse;
 }
 
-// Interface para resposta do token de edição
 export interface EditTokenResponse {
   message: string;
   slug: string;
   editToken: string;
 }
 
-// 2. AS FUNÇÕES DO SERVIÇO AGORA USAM ESSAS INTERFACES LOCAIS
 export const getDocument = async (slug: string): Promise<DocumentData> => {
   const response = await apiClient.get<DocumentData>(`/docs/${slug}`);
   return response.data;
@@ -61,7 +53,6 @@ export const updateDocumentContent = async (
   content: string,
   editToken?: string | null
 ): Promise<{ message: string; slug: string; updatedAt: string }> => {
-  // Tipo de retorno ajustado
   const headers: Record<string, string> = {};
   if (editToken) {
     headers["X-Edit-Token"] = editToken;
@@ -90,7 +81,9 @@ export const generateEditToken = async (
   return response.data;
 };
 
-export const deleteDocument = async (slug: string): Promise<{ message: string }> => {
+export const deleteDocument = async (
+  slug: string
+): Promise<{ message: string }> => {
   const response = await apiClient.delete<{ message: string }>(`/docs/${slug}`);
   return response.data;
 };

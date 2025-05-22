@@ -27,7 +27,6 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType>(null!);
 
 export const useAuth = () => {
-  // Manteremos o hook aqui por enquanto
   const context = useContext(AuthContext);
   if (!context) {
     throw new Error("useAuth deve ser usado dentro de um AuthProvider");
@@ -42,7 +41,7 @@ interface AuthProviderProps {
 // Tipagem para a estrutura esperada de erro da API (opcional, mas útil)
 interface ApiErrorData {
   message: string;
-  errors?: Array<{ msg: string; param?: string }>; // Ajuste conforme a resposta do seu backend
+  errors?: Array<{ msg: string; param?: string }>;
 }
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
@@ -64,7 +63,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
           setUser(response.data as User);
         })
         .catch((error: unknown) => {
-          // <<< MUDANÇA AQUI
           let errorMessage =
             "Falha ao validar token inicial ou buscar usuário.";
           if (axios.isAxiosError(error)) {
@@ -132,7 +130,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     } catch (error: unknown) {
       let errorMessage = "Falha no registro.";
       if (axios.isAxiosError(error)) {
-        const axiosError = error as AxiosError<ApiErrorData>; // Especifica o tipo de 'data' do erro
+        const axiosError = error as AxiosError<ApiErrorData>;
         errorMessage = axiosError.response?.data?.message || axiosError.message;
       } else if (error instanceof Error) {
         errorMessage = error.message;

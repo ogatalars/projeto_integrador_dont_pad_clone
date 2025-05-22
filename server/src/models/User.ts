@@ -1,23 +1,25 @@
 // src/models/User.ts
-import { DataTypes, Model, Optional } from 'sequelize';
-import sequelizeInstance from '../config/db'; 
-import bcrypt from 'bcrypt';
+import { DataTypes, Model, Optional } from "sequelize";
+import sequelizeInstance from "../config/db";
+import bcrypt from "bcrypt";
 
 interface UserAttributes {
   id: number;
   email: string;
-  password?: string; // Opcional porque não queremos sempre incluí-lo
+  password?: string;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
+interface UserCreationAttributes
+  extends Optional<UserAttributes, "id" | "createdAt" | "updatedAt"> {}
 
-interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'createdAt' | 'updatedAt'> {}
-
-export interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes {}
+export interface UserInstance
+  extends Model<UserAttributes, UserCreationAttributes>,
+    UserAttributes {}
 
 const User = sequelizeInstance.define<UserInstance>(
-  'User',
+  "User",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -25,12 +27,12 @@ const User = sequelizeInstance.define<UserInstance>(
       primaryKey: true,
     },
     email: {
-      type: DataTypes.STRING(191), 
+      type: DataTypes.STRING(191),
       allowNull: false,
       unique: true,
       validate: {
         isEmail: {
-          msg: 'Por favor, forneça um endereço de e-mail válido.',
+          msg: "Por favor, forneça um endereço de e-mail válido.",
         },
       },
     },
@@ -40,13 +42,13 @@ const User = sequelizeInstance.define<UserInstance>(
       validate: {
         len: {
           args: [6, 255],
-          msg: 'A senha deve ter pelo menos 6 caracteres.',
+          msg: "A senha deve ter pelo menos 6 caracteres.",
         },
       },
     },
   },
   {
-    tableName: 'users',
+    tableName: "users",
     timestamps: true,
     hooks: {
       beforeCreate: async (user: UserInstance) => {
@@ -56,8 +58,8 @@ const User = sequelizeInstance.define<UserInstance>(
         }
       },
       beforeUpdate: async (user: UserInstance) => {
-        if (user.changed('password') && user.password) {
-          if (!user.password.startsWith('$2') || user.password.length !== 60) { // Evita re-hash de um hash
+        if (user.changed("password") && user.password) {
+          if (!user.password.startsWith("$2") || user.password.length !== 60) {
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(user.password, salt);
           }
@@ -65,11 +67,11 @@ const User = sequelizeInstance.define<UserInstance>(
       },
     },
     defaultScope: {
-      attributes: { exclude: ['password'] },
+      attributes: { exclude: ["password"] },
     },
     scopes: {
       withPassword: {
-        attributes: { include: ['password'] },
+        attributes: { include: ["password"] },
       },
     },
   }

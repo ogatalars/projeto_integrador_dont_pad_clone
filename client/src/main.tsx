@@ -1,9 +1,9 @@
 (function () {
-  const redirect = sessionStorage.getItem("redirect"); // Usar getItem
+  const redirect = sessionStorage.getItem("redirect"); 
   if (redirect) {
-    sessionStorage.removeItem("redirect"); // Limpa após o uso
+    sessionStorage.removeItem("redirect"); 
     if (redirect !== window.location.href) {
-      window.history.replaceState(null, "", redirect); // Atualiza a URL sem recarregar a página
+      window.history.replaceState(null, "", redirect); 
     }
   }
 })();

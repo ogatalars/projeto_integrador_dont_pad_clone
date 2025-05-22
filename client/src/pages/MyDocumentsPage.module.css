@@ -9,9 +9,9 @@
 .heading {
   border-bottom: 1px solid #30363d;
   padding-bottom: 10px;
-  margin-bottom: 25px; /* Aumentei um pouco a margem inferior */
+  margin-bottom: 25px; 
   color: #c9d1d9;
-  font-size: 1.8em; /* Um pouco maior */
+  font-size: 1.8em; 
 }
 
 .list {
@@ -21,7 +21,7 @@
 
 .listItem {
   margin-bottom: 12px;
-  padding: 15px 20px; /* Aumentei padding */
+  padding: 15px 20px; 
   background-color: #161b22;
   border-radius: 6px;
   border: 1px solid #30363d;
@@ -32,7 +32,7 @@
 }
 
 .listItem:hover {
-  background-color: #21262d; /* Efeito hover sutil */
+  background-color: #21262d; 
 }
 
 .docInfoLink { /* Para o Link que envolve o slug */
@@ -81,7 +81,7 @@
     color: #8b949e;
 }
 
-.noDocumentsLink { /* Para o Link dentro da mensagem de "sem documentos" */
+.noDocumentsLink { 
     color: #58a6ff;
     text-decoration: none;
 }
