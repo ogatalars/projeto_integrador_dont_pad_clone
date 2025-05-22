@@ -1,106 +1,183 @@
+/* src/pages/LoginPage.module.css */
 
-
-.page { /* Antigo pageStyle */
+/* Estilo da página principal */
+.page {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 60px - 40px); /* 100vh - altura da navbar - padding do appContainer (ajuste se necessário) */
-  color: white;
+  min-height: calc(100vh - 100px); /* Ajustado para compatibilidade */
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%); /* Gradiente escuro com toque azulado */
   padding: 20px;
+  overflow: hidden; /* Evita barras de rolagem desnecessárias */
 }
 
-.formContainer { /* Antigo formContainerStyle (que envolvia o form) e parte do formStyle */
+/* Container do formulário */
+.formContainer {
   display: flex;
   flex-direction: column;
-  width: 100%; 
-  max-width: 350px;
-  padding: 30px; /* Aumentei padding */
-  border: 1px solid #30363d; 
-  border-radius: 8px;
-  background-color: #161b22; 
-  text-align: center; /* Para centralizar o h2 e o parágrafo do link de registro */
-}
-
-.form { /* Para o elemento <form> em si */
-    display: flex;
-    flex-direction: column;
-    gap: 18px; /* Espaçamento entre os grupos de label/input e botão */
-    width: 100%;
-}
-
-.formGroup { /* Para envolver cada label + input */
-    text-align: left; /* Alinha labels à esquerda */
-}
-
-.label { /* Antigo labelStyle */
-  display: block;
-  margin-bottom: 5px;
-  font-size: 0.9em;
-  color: #c9d1d9; /* Cor de texto clara */
-}
-
-.input { /* Antigo inputStyle */
-  padding: 12px; 
-  border-radius: 6px; 
-  border: 1px solid #30363d;
-  background-color: #0d1117;
-  color: #c9d1d9;
-  font-size: 1em;
-  width: 100%; /* Para ocupar a largura da .formGroup */
-}
-
-.button { /* Antigo buttonStyle */
-  padding: 12px;
-  border-radius: 6px;
-  border: none;
-  background-color: #238636; /* Verde do GitHub */
-  color: white;
-  cursor: pointer;
-  font-size: 1em;
-  font-weight: 500;
   width: 100%;
-  margin-top: 10px; /* Espaço acima do botão */
+  max-width: 420px; /* Maior para um visual mais amplo */
+  padding: 40px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.95) 100%); /* Fundo semi-transparente */
+  box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); /* Sombra com toque neon azul */
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.formContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.2), transparent 70%); /* Efeito de brilho */
+  pointer-events: none;
+}
+
+.formContainer:hover {
+  transform: translateY(-6px); /* Elevação mais pronunciada */
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.5); /* Sombra neon mais intensa */
+}
+
+/* Estilo do formulário */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px; /* Espaçamento maior para clareza */
+  width: 100%;
+}
+
+/* Grupo de label + input */
+.formGroup {
+  text-align: left;
+}
+
+/* Estilo das labels */
+.label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 0.95em;
+  font-weight: 600;
+  color: #93c5fd; /* Azul claro neon para destaque */
+  text-transform: uppercase; /* Letras maiúsculas para um toque futurista */
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+/* Estilo dos inputs */
+.input {
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(59, 130, 246, 0.3); /* Borda com toque neon */
+  background-color: rgba(15, 23, 42, 0.7); /* Fundo escuro semi-transparente */
+  color: #e0e0e0;
+  font-size: 1em;
+  width: 92%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #3b82f6; /* Azul neon vibrante */
+  box-shadow: 0 0 12px rgba(59, 130, 246, 0.6); /* Efeito neon ao focar */
+  transform: scale(1.02); /* Leve aumento ao focar */
+}
+
+/* Estilo do botão */
+.button {
+  padding: 16px;
+  border-radius: 10px;
+  border: none;
+  background: linear-gradient(90deg, #3b82f6 0%, #a78bfa 100%); /* Gradiente neon azul-roxo */
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.1em;
+  font-weight: 700;
+  width: 100%;
+  margin-top: 12px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.7); /* Efeito neon ao hover */
+}
+
+.button:hover::after {
+  left: 100%; /* Efeito de brilho deslizante */
 }
 
 .button:disabled {
-    background-color: #519a57;
-    cursor: not-allowed;
+  background: #4b5563; /* Cinza escuro para estado desabilitado */
+  cursor: not-allowed;
 }
 
-.link { /* Antigo linkStyle */
-  color: #58a6ff; /* Azul do GitHub */
-  margin-top: 25px; /* Aumentei margem */
+/* Estilo do link */
+.link {
+  color: #60a5fa; /* Azul neon claro */
   text-decoration: none;
-  display: inline-block; /* Para que a margem funcione bem */
+  font-weight: 600;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-.title { /* Para o h2 */
-    margin-bottom: 25px;
-    color: #c9d1d9;
+.link:hover {
+  color: #93c5fd;
+  text-shadow: 0 0 8px rgba(147, 197, 253, 0.5); /* Efeito neon ao hover */
 }
 
-/* Estilos de Mensagem (error e success) */
-.messageBase { /* Antigo messageBaseStyle */
-  padding: 10px 15px;
-  margin: 0 0 15px 0; /* Margem apenas abaixo, antes do botão */
-  border-radius: 6px;
+/* Estilo do título */
+.title {
+  margin-bottom: 32px;
+  font-size: 2em;
+  font-weight: 800;
+  color: #f8fafc; /* Branco puro para destaque */
+  letter-spacing: 1px;
+  text-transform: uppercase; /* Estilo futurista */
+  text-shadow: 0 0 10px rgba(59, 130, 246, 0.4); /* Sombra neon sutil */
+}
+
+/* Estilo base para mensagens */
+.messageBase {
+  padding: 14px 18px;
+  margin: 0 0 20px 0;
+  border-radius: 10px;
   text-align: center;
-  width: 100%; 
+  width: 100%;
   font-size: 0.95em;
-  line-height: 1.4;
+  line-height: 1.5;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.errorMessage { /* Antigo errorStyle */
-  color-scheme: messageBase; /* Herda de messageBase */
-  color: #f85149; 
-  background-color: rgba(248, 81, 73, 0.15); 
-  border: 1px solid rgba(248, 81, 73, 0.4);
+/* Estilo para mensagens de erro */
+.errorMessage {
+  color: #f87171; /* Vermelho neon */
+  background-color: rgba(248, 113, 113, 0.15);
+  border: 1px solid rgba(248, 113, 113, 0.4);
+  box-shadow: 0 0 8px rgba(248, 113, 113, 0.3); /* Toque neon */
 }
 
-.successMessage { /* Antigo successStyle */
-  color-scheme: messageBase; /* Herda de messageBase */
-  color: '#3fb950'; 
-  background-color: rgba(63, 185, 80, 0.15); 
-  border: '1px solid rgba(63, 185, 80, 0.4)';
+/* Estilo para mensagens de sucesso */
+.successMessage {
+  color: #2dd4bf; /* Ciano neon */
+  background-color: rgba(45, 212, 191, 0.15);
+  border: 1px solid rgba(45, 212, 191, 0.4);
+  box-shadow: 0 0 8px rgba(45, 212, 191, 0.3); /* Toque neon */
 }
