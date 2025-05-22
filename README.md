@@ -9,15 +9,15 @@ Além disso, a praticidade é um ponto central: o Flashnote pode ser acessado de
 
 
 ## Integrantes/colaboradores (MVP)
-- Felipe de Mello Ogata (@ogatalars)
-- Fábio Wood (@woodfabio)
-- Vinicius Valadares Chinelatto (@Vaaladares)
-- Lorena Camila de Almeida Lopes - @LorenaCamila
-- Matheus Felipe dos Santos - @matheusfsantoz
-- Vinicios Raiser - @viniciosraiser
-- Elen Reis - @elenreis
+- Felipe de Mello Ogata (@ogatalars) -> backend/front e banco de dados
+- Fábio Wood (@woodfabio) -> readme, documentação  e testes
+- Vinicius Valadares Chinelatto (@Vaaladares) -> frontend
+- Lorena Camila de Almeida Lopes - @LorenaCamila -> edição do video, testes e documentação
+- Matheus Felipe dos Santos - @matheusfsantoz -> frontend
+- Vinicios Raiser - @viniciosraiser -> frontend
+- Elen Reis - @elenreis -> backend
 
-## Funcionalidades Principais (MVP)
+## Funcionalidades Principais/CORE (MVP)
 
 * Registro e Login de Usuários (Autenticação baseada em JWT).
 * Criação de novos documentos de texto com URLs (slugs) únicas.
@@ -25,6 +25,11 @@ Além disso, a praticidade é um ponto central: o Flashnote pode ser acessado de
 * Visualização pública de documentos através do slug.
 * Geração de um token de edição para permitir que outros usuários (logados) editem um documento específico.
 * Listagem e exclusão de documentos pertencentes ao usuário logado.
+* Backend -> TS, servidor no RENDER (api + webservice)
+* Frontend -> react + typescript -> vite
+* Banco de dados fisico -> SQLite (local); Servidor RENDER -> PostgreSQL
+* Autenticação de usuário com JWT
+* Gravação do video -> OBS. Link -> 
 
 ## Tecnologias Utilizadas
 
