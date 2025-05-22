@@ -3,6 +3,7 @@ import { useState, type FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import styles from "./LoginPage.module.css"; // <<< 1. IMPORTE O ARQUIVO CSS MODULE
+import FlashNoteLogo from "../assets/FlashNote.png";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -42,7 +43,7 @@ const LoginPage = () => {
   return (
     <div className={styles.page}>
       <div className={styles.formContainer}>
-        <h2 className={styles.title}>Login - Flashnote</h2>
+	<img src={FlashNoteLogo} alt="FlashNote Logo" className={styles.logo} />
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.formGroup}>
             <label htmlFor="email" className={styles.label}>

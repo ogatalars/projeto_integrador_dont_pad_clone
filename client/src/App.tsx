@@ -8,6 +8,7 @@ import MyDocumentsPage from "./pages/MyDocumentsPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./contexts/AuthContext";
 import styles from "./App.module.css"; // <<< 1. IMPORTE O ARQUIVO CSS MODULE
+import FlashNoteLogo from "./assets/FlashNoteHorizontal.png"; // Importação da imagem
 
 function App() {
   const { isAuthenticated, logout, user } = useAuth();
@@ -26,8 +27,18 @@ function App() {
         <div style={{ display: "flex", alignItems: "center" }}>
           {" "}
           {/* Wrapper para links da esquerda */}
-          <Link to="/" className={styles.navBrandLink}>
-            Flashnote
+<Link to="/" className={styles.navBrandLink}>
+            <img
+              src={FlashNoteLogo}
+              alt="FlashNote Logo"
+              className={styles.navLogo}
+              onError={(e) => {
+                e.currentTarget.style.display = "none";
+              }}
+            />
+            <span className={styles.navLogoText} style={{ display: "none" }}>
+              Flashnote
+            </span>
           </Link>
           {isAuthenticated && (
             <Link to="/meus-documentos" className={styles.navLink}>
