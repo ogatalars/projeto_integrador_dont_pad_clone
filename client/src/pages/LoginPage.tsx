@@ -1,15 +1,12 @@
-// src/pages/LoginPage.tsx
 import { useState, type FormEvent } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
-import styles from "./LoginPage.module.css"; // <<< 1. IMPORTE O ARQUIVO CSS MODULE
+import styles from "./LoginPage.module.css"; 
 import FlashNoteLogo from "../assets/FlashNote.png";
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [error, setError] = useState<string | null>(null); // Não é mais necessário se alert() for usado
-  // const [successMessage, setSuccessMessage] = useState<string | null>(null); // Não é mais necessário
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { login } = useAuth();

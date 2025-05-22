@@ -7,8 +7,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 import MyDocumentsPage from "./pages/MyDocumentsPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { useAuth } from "./contexts/AuthContext";
-import styles from "./App.module.css"; // <<< 1. IMPORTE O ARQUIVO CSS MODULE
-import FlashNoteLogo from "./assets/FlashNoteHorizontal.png"; // Importação da imagem
+import styles from "./App.module.css"; 
+import FlashNoteLogo from "./assets/FlashNoteHorizontal.png"; 
 
 function App() {
   const { isAuthenticated, logout, user } = useAuth();
@@ -19,15 +19,12 @@ function App() {
     navigate("/login");
   };
 
-
   return (
-
     <div className={styles.appContainer}>
       <nav className={styles.nav}>
         <div style={{ display: "flex", alignItems: "center" }}>
           {" "}
-          {/* Wrapper para links da esquerda */}
-<Link to="/" className={styles.navBrandLink}>
+          <Link to="/" className={styles.navBrandLink}>
             <img
               src={FlashNoteLogo}
               alt="FlashNote Logo"

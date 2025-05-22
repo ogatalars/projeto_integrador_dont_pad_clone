@@ -12,7 +12,6 @@ const app: Express = express();
 const PORT = process.env.PORT || 5001;
 
 const productionFrontendOrigin = 'https://ogatalars.github.io';
-// Middlewares
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -28,7 +27,7 @@ app.use(
       ) {
         callback(null, true);
       } else {
-        console.warn(`CORS: Origin not allowed: ${origin}`); // Log para debug
+        console.warn(`CORS: Origin not allowed: ${origin}`); 
         callback(new Error("Not allowed by CORS"));
       }
     },

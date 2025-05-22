@@ -18,8 +18,8 @@ if (process.env.NODE_ENV === 'production' && productionDbUrl) {
         rejectUnauthorized: false, 
       },
     },
-    logging: false, // Desabilitar logs SQL detalhados em produção
-    pool: { // Configurações de pool de conexão (opcional, mas bom para produção)
+    logging: false, 
+    pool: { 
       max: 5,
       min: 0,
       acquire: 30000,
@@ -28,7 +28,6 @@ if (process.env.NODE_ENV === 'production' && productionDbUrl) {
   };
   sequelize = new Sequelize(productionDbUrl, options);
 } else {
-  // Configuração para DESENVOLVIMENTO LOCAL (SQLite ou outro definido no .env local)
   console.log('Configurando Sequelize para desenvolvimento local...');
   const localDialect = (process.env.DB_DIALECT as 'sqlite' | 'postgres' | 'mysql') || 'sqlite';
 
@@ -43,8 +42,7 @@ if (process.env.NODE_ENV === 'production' && productionDbUrl) {
     localOptions.storage = process.env.DB_STORAGE || './database.sqlite';
   }
 
-  // Para SQLite, os três primeiros argumentos de new Sequelize não são usados se 'storage' for fornecido.
-  // Para outros dialetos, eles são dbName, dbUser, dbPassword.
+
   if (localDialect === 'sqlite') {
     sequelize = new Sequelize(localOptions);
   } else {
@@ -66,18 +64,9 @@ export const initDB = async () => {
     await sequelize.authenticate();
     console.log(`Conexão com o banco de dados (${sequelize.getDialect()}) estabelecida com sucesso.`);
 
-    // Em produção, NUNCA use { force: true }.
-    // { alter: true } pode ser usado com CUIDADO em produção, especialmente no primeiro deploy.
-    // A melhor prática para produção é usar Migrations do Sequelize.
-    // Para o nosso primeiro deploy no Render, e como o banco será novo, { alter: true } deve funcionar.
+    
     const syncOptions = process.env.NODE_ENV === 'production' ? { alter: true } : { alter: true };
 
-    // Se você quiser ter certeza absoluta de que as tabelas serão criadas da forma correta
-    // no primeiro deploy em um banco de dados PostgreSQL NOVO e VAZIO no Render,
-    // você poderia temporariamente usar { force: true } APENAS para esse primeiro deploy,
-    // e depois mudar de volta para { alter: true } ou (idealmente) remover o sync em produção
-    // e gerenciar o schema com migrações.
-    // Por agora, vamos manter { alter: true } para ambos.
 
     await sequelize.sync(syncOptions); 
     console.log('Modelos sincronizados com o banco de dados.');
